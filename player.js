@@ -59,14 +59,14 @@ class Player {
                 playerImg[0].src  = '../image_gl/explosion' + explodeStatus +'.png';
                 explodeStatus++;
                 if (explodeStatus == 6) 
-                        GAME_STATUS = 'over';
+                        GAME_STATUS = 'player_over';
             }
         }
     
     }
     
     draw(gs) {
-        if (gs != 'player_explode') {        
+        if (gs == 'go' || gs == 'ready') {        
             con.drawImage(playerImg[playerNo],0,0,PLAYER_SIZE_W,94, this.x, this.y, PLAYER_SIZE_W, 94);
             playerFire.forEach(function(obj){
                 obj.draw();
@@ -74,6 +74,11 @@ class Player {
         }
         else if (gs == 'player_explode') {
             con.drawImage(playerImg[playerNo],0,0,96,96, this.x, this.y, 96, 96);
+        }
+        else if (GAME_STATUS == 'player_over') {
+            con.font = "36px 'Impact'";
+            con.fillStyle = "red"; 
+            con.fillText('You Loose!!',SCREEN_SIZE_W/2-100,SCREEN_SIZE_H/2);
         }
     }
 }
@@ -126,6 +131,9 @@ document.onkeydown = function(e) {
     if(e.code == 'KeyZ') {
         keyb.Fire = true;
     }
+    if(e.code == 'KeyS') {
+        keyb.Start = true;
+    }
 }
 document.onkeyup = function(e) {
     if(e.code == 'ArrowLeft')   {
@@ -136,5 +144,6 @@ document.onkeyup = function(e) {
         keyb.Right  = false;
         playerNo = 1;       
     }
-    if(e.code == 'KeyZ') keyb.Fire = false;
+    if(e.code == 'KeyZ')  keyb.Fire = false;
+    if(e.code == 'KeyS') keyb.Start = false;
 }
