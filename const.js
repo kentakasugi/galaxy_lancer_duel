@@ -9,7 +9,8 @@ let   GAME_STATUS = 'opening';
 const MAX_SPEED = 5;
 const PLAYER_SIZE_W = 74;
 const PLAYER_SIZE_H = 96;
-let   MAX_FIRE = 2;
+let   now_fire = 0;
+const MAX_FIRE = 3;
 const PLAYER_FIRE_SIZE_W = 20;
 const PLAYER_FIRE_SIZE_H = 64;
 

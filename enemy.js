@@ -27,7 +27,7 @@ class Enemy {
             this.x += 2;
             if (this.x >= SCREEN_SIZE_W /2) {
                 GAME_STATUS = 'go'; 
-                MAX_FIRE = 2;                               
+                now_fire = MAX_FIRE;                               
             }
         }
         else if (gs == 'go') {
@@ -47,7 +47,7 @@ class Enemy {
                 if(this.x < 0) this.x = 0;
                 if(this.x > SCREEN_SIZE_W-ENEMY_SIZE_W[enemyNo]) this.x = SCREEN_SIZE_W-ENEMY_SIZE_W[enemyNo];
 
-                if(Math.random()>0.7 && enemyFire.length < MAX_FIRE &&  frameCount%10==0)  {
+                if(Math.random()>0.5 && enemyFire.length < now_fire &&  frameCount%10==0)  {
                     enemyFire.push(new EnemyFire(this.x+ENEMY_SIZE_W[enemyNo]/2,this.y+ENEMY_SIZE_H[enemyNo]/2)); 
                 }
             }
@@ -128,19 +128,26 @@ class EnemyFire {
             this.y += this.vy;
         }
         else if (enemyNo == 1) {   //狙い撃ち
-            this.dirX += this.diffX;
-            this.y += this.vy;
-        }
-        else if (enemyNo == 2) {  //曲がりながら下へ
             this.dirX = Math.sin(frameCount/10) * 50;
             this.y += this.vy;
         }
-        else if (enemyNo < 5) { //曲がりながら狙い撃ち
+        else if (enemyNo == 2) {  //曲がりながら下へ
+            let speedAjust = this.vy / Math.sqrt(this.diffX**2 + this.vy**2);
+            this.dirX += this.diffX*speedAjust;
+            this.y += this.vy*speedAjust;
+        }
+        else if (enemyNo == 3) { //曲がりながら狙い撃ち
+            let speedAjust = this.vy / Math.sqrt(this.diffX**2 + this.vy**2);
             
             this.dirX += this.diffX - prevDirX;  
             prevDirX = Math.sin(frameCount/10) * 50;          
-            this.dirX += prevDirX;           
-
+            this.dirX += prevDirX;      
+            this.y += this.vy*speedAjust;
+        }
+        else if (enemyNo == 4) { //曲がりながら狙い撃ち&早い弾
+            this.dirX += this.diffX - prevDirX;  
+            prevDirX = Math.sin(frameCount/10) * 50;          
+            this.dirX += prevDirX;
             this.y += this.vy;
         }
 

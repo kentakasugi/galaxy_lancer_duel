@@ -48,7 +48,7 @@ function mainLoop()
 
 function update() {
     if(GAME_STATUS != 'go') {
-        MAX_FIRE = 0;
+        now_fire = 0;
     }
     if (GAME_STATUS == 'opening') {
 
@@ -74,6 +74,10 @@ function draw() {
         con.drawImage(titleBackImg,  -400, -400, 800,800);  
         con.restore();   
         con.drawImage(titleImg,  0, 0, 820,240, SCREEN_SIZE_W/2-820/2, SCREEN_SIZE_H/2-240/2,820,240);
+        //
+        con.font = "36px 'Impact'";
+        con.fillStyle = "yellow"; 
+        con.fillText('Press S to start!',SCREEN_SIZE_W/2-80,SCREEN_SIZE_H-30);
         if(keyb.Start)   GAME_STATUS = 'ready';
     }
     else {

@@ -37,7 +37,7 @@ class Player {
             if(this.x < 0) this.x = 0;
             if(this.x > SCREEN_SIZE_W-PLAYER_SIZE_W) this.x = SCREEN_SIZE_W-PLAYER_SIZE_W;
 
-            if(keyb.Fire && playerFire.length < MAX_FIRE)  {
+            if(keyb.Fire && playerFire.length < now_fire)  {
                 playerFire.push(new PlayerFire(this.x+27,this.y)); 
                 keyb.Fire = false;
             }
